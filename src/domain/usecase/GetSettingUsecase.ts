@@ -1,7 +1,7 @@
 import LoggingRepository from '../../infrastructure/repository/LoggingRepository';
 import SettingsRepository from '../../infrastructure/repository/SettingsRepository';
 
-export default class getSettingUsecase {
+export default class GetSettingUsecase {
   private settingsRepository: SettingsRepository;
   private loggingRepository: LoggingRepository;
 
@@ -11,17 +11,24 @@ export default class getSettingUsecase {
     this.loggingRepository = loggingRepository;
   }
 
-  async execute(username: string) {
-    return Promise.all([
-      this.settingsRepository.getSettings(username), // new line
+  async execute(request: GetSettingUsecaseReq): Promise<GetSettingUsecaseRes> {
+    console.log('execute', request);
+    const [settings, logging] = await Promise.all([
+      this.settingsRepository.getSettings(request.username), // new line
       this.loggingRepository.postLogging(),
-    ]).then((res) => {
-      console.log(res);
-      const [settings, logging] = res;
-      return {
-        settings,
-        logging,
-      };
-    });
+    ]);
+    return {
+      settings,
+      logging,
+    };
   }
+}
+
+export interface GetSettingUsecaseReq {
+  username: string;
+}
+
+export interface GetSettingUsecaseRes {
+  settings: { username: string };
+  logging: { text: string };
 }

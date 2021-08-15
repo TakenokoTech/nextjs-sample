@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { POSTS_DIR } from '../../const';
 
 export default class GetSortedPostsDataUsecase {
-  execute(): SortedPostsData[] {
+  execute(): SortedPostsResponse[] {
     const fileNames = fs.readdirSync(POSTS_DIR);
     const allPostsData = fileNames.map((fileName) => {
       const id = fileName.replace(/\.md$/, '');
@@ -26,11 +26,11 @@ export default class GetSortedPostsDataUsecase {
         return 0;
       }
     });
-    return sortedData as SortedPostsData[];
+    return sortedData as SortedPostsResponse[];
   }
 }
 
-export interface SortedPostsData {
+export interface SortedPostsResponse {
   id: string;
   date: string;
   title: string;

@@ -5,6 +5,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // console.log(req.method);
   const username = req.query['username'];
 
-  await TimeUtils.sleep(5);
+  await TimeUtils.sleep(1);
   res.status(200).json({ username });
 }
