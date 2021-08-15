@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import DateComponent from '../components/DateComponent';
-import Layout, { siteTitle } from '../components/layout';
+import HeaderComponent, { HeaderSize } from '../components/HeaderComponent';
+import LayoutComponent, { siteTitle } from '../components/LayoutComponent';
 import GetSortedPostsDataUsecase, { SortedPostsData } from '../domain/usecase/GetSortedPostsDataUsecase';
 import utilStyles from '../styles/utils.module.css';
 
@@ -11,7 +12,7 @@ interface Props {
 
 export default function Home({ allPostsData }: Props) {
   return (
-    <Layout home>
+    <LayoutComponent home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
@@ -22,7 +23,7 @@ export default function Home({ allPostsData }: Props) {
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <HeaderComponent size={HeaderSize.SizeLg}>Blog</HeaderComponent>
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
@@ -37,7 +38,7 @@ export default function Home({ allPostsData }: Props) {
           ))}
         </ul>
       </section>
-    </Layout>
+    </LayoutComponent>
   );
 }
 

@@ -1,7 +1,9 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
+import React from 'react';
 import DateComponent from '../../components/DateComponent';
-import Layout from '../../components/layout';
+import HeaderComponent, { HeaderSize } from '../../components/HeaderComponent';
+import LayoutComponent from '../../components/LayoutComponent';
 import GetAllPostIdsUsecase from '../../domain/usecase/GetAllPostIdsUsecase';
 import GetPostDataUsecase from '../../domain/usecase/GetPostDataUsecase';
 import utilStyles from '../../styles/utils.module.css';
@@ -9,16 +11,16 @@ import utilStyles from '../../styles/utils.module.css';
 export default function Post(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const postData = props.postData;
   return (
-    <Layout>
+    <LayoutComponent>
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+      <HeaderComponent size={HeaderSize.SizeXL}>{postData.title}</HeaderComponent>
       <div className={utilStyles.lightText}>
         <DateComponent dateString={postData.date} />
       </div>
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-    </Layout>
+    </LayoutComponent>
   );
 }
 

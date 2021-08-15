@@ -1,9 +1,9 @@
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage, NextPageContext } from 'next';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import React from 'react';
 import useSWR from 'swr';
-import Layout from '../../components/layout';
+import HeaderComponent, { HeaderSize } from '../../components/HeaderComponent';
+import LayoutComponent from '../../components/LayoutComponent';
 import GetSettingUsecase from '../../domain/usecase/GetSettingUsecase';
 import LoggingRepository from '../../infrastructure/repository/LoggingRepository';
 import SettingsRepository from '../../infrastructure/repository/SettingsRepository';
@@ -23,13 +23,13 @@ export default function Post(props: InferGetStaticPropsType<typeof getStaticProp
   })(useSWR(username, getSettingUsecase.execute));
 
   return (
-    <Layout>
+    <LayoutComponent>
       <Head>
         <title>{username}</title>
       </Head>
-      <h1 className={utilStyles.headingXl}>{username}</h1>
+      <HeaderComponent size={HeaderSize.SizeXL}>{username}</HeaderComponent>
       {settingDiv}
-    </Layout>
+    </LayoutComponent>
   );
 }
 

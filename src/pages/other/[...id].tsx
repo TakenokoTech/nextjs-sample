@@ -1,7 +1,7 @@
-import Layout from '../../components/layout';
+import LayoutComponent from '../../components/LayoutComponent';
 
 export default function Post({ postData }) {
-  return <Layout>[...id].tsx</Layout>;
+  return <LayoutComponent>[...id].tsx</LayoutComponent>;
 }
 
 export async function getStaticPaths() {
