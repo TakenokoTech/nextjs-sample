@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import Image from '../../src/components/image';
+import * as React from 'react';
+import Image from '../../src/components/ImageComponent';
 
 describe('sample test', () => {
   it('test', () => {

@@ -1,7 +1,7 @@
-import styles from './alert.module.css';
 import cn from 'classnames';
+import styles from './AlertComponent.module.css';
 
-export default function Alert({ children, type }) {
+export default function AlertComponent({ children, type }) {
   return (
     <div
       className={cn({

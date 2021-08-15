@@ -1,8 +1,8 @@
 import React from 'react';
-import Image from './image';
+import Image from './ImageComponent';
 
 export default {
-  title: 'Image',
+  title: 'ImageComponent',
 };
 
 export const show = () => <Image />;

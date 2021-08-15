@@ -1,21 +1,15 @@
 import Head from 'next/head';
-import Layout, { siteTitle } from '../components/layout';
-import utilStyles from '../styles/utils.module.css';
-import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
-import Date from '../components/date';
+import DateComponent from '../components/DateComponent';
+import Layout, { siteTitle } from '../components/layout';
+import GetSortedPostsDataUsecase, { SortedPostsData } from '../domain/usecase/GetSortedPostsDataUsecase';
+import utilStyles from '../styles/utils.module.css';
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
+interface Props {
+  allPostsData: SortedPostsData[];
 }
 
-export default function Home({ allPostsData }) {
-  console.log(allPostsData);
+export default function Home({ allPostsData }: Props) {
   return (
     <Layout home>
       <Head>
@@ -37,7 +31,7 @@ export default function Home({ allPostsData }) {
               </Link>
               <br />
               <small className={utilStyles.lightText}>
-                <Date dateString={date} />
+                <DateComponent dateString={date} />
               </small>
             </li>
           ))}
@@ -45,4 +39,12 @@ export default function Home({ allPostsData }) {
       </section>
     </Layout>
   );
+}
+
+export async function getStaticProps(): Promise<{ props: Props }> {
+  return {
+    props: {
+      allPostsData: new GetSortedPostsDataUsecase().execute(),
+    },
+  };
 }

@@ -1,28 +1,26 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage, NextPageContext } from 'next';
-import Layout from '../../components/layout';
 import Head from 'next/head';
-import utilStyles from '../../styles/utils.module.css';
 import { useRouter } from 'next/router';
 import React from 'react';
 import useSWR from 'swr';
-
-const fetcher = async (url) => {
-  const res = await fetch(url);
-  const json = await res.json();
-  return json['']['text'];
-};
+import Layout from '../../components/layout';
+import GetSettingUsecase from '../../domain/usecase/GetSettingUsecase';
+import LoggingRepository from '../../infrastructure/repository/LoggingRepository';
+import SettingsRepository from '../../infrastructure/repository/SettingsRepository';
+import utilStyles from '../../styles/utils.module.css';
 
 export default function Post(props: InferGetStaticPropsType<typeof getStaticProps>) {
+  const getSettingUsecase = new GetSettingUsecase(new SettingsRepository(), new LoggingRepository());
+  // console.log(useRouter().query);
   const username = props.username;
-  const res1 = useSWR('/api/hello', fetcher);
-  const res2 = useSWR('/api/hello', fetcher);
 
-  console.log(useRouter().query);
-  console.log(res1);
-  console.log(res2);
-
-  const error = res1.error || res2.error ? <div>failed to load</div> : null;
-  const loading = !res1.data || !res2.data ? <div>loading...</div> : null;
+  const settingDiv = ((res) => {
+    if (res.error) console.error(res.error);
+    const error = res.error ? <div>failed to load</div> : null;
+    const loading = !res.data ? <div>loading...</div> : null;
+    const result = res.data ? <div>{res.data.logging.text}</div> : null;
+    return error || loading || result;
+  })(useSWR(username, getSettingUsecase.execute));
 
   return (
     <Layout>
@@ -30,9 +28,7 @@ export default function Post(props: InferGetStaticPropsType<typeof getStaticProp
         <title>{username}</title>
       </Head>
       <h1 className={utilStyles.headingXl}>{username}</h1>
-      {error || loading}
-      {res1.data ? <div>{res1.data}</div> : null}
-      {res2.data ? <div>{res2.data}</div> : null}
+      {settingDiv}
     </Layout>
   );
 }
