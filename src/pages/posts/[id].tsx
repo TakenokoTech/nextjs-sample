@@ -34,7 +34,8 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   console.log(process.env.USER);
-  const postData = await new GetPostDataUsecase().execute(context.params.id as string);
+  const id = context.params.id as string;
+  const postData = await new GetPostDataUsecase().execute(id);
   return {
     props: {
       postData,

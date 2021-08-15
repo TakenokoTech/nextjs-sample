@@ -1,3 +1,5 @@
-export default function Custom404() {
-  return <h1>404 - Page Not Found</h1>;
+import NotFoundComponent from '../components/NotFoundComponent';
+
+export default function Page404() {
+  return <NotFoundComponent />;
 }

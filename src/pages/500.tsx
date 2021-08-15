@@ -1,3 +1,5 @@
-export default function Custom404() {
-  return <h1>500 - Page Not Found</h1>;
+import InternalServerErrorComponent from '../components/InternalServerErrorComponent';
+
+export default function Page500() {
+  return <InternalServerErrorComponent />;
 }

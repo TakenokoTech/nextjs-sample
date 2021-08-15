@@ -7,7 +7,7 @@
 - SWR
 
 
-## COmmand
+## Command
 
 ```
 # Run Watch
