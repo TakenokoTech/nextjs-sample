@@ -1,12 +1,21 @@
 const loaders = (options = {}) => [
   { loader: 'style-loader' }, //
-  { loader: 'css-loader', options: { importLoaders: 1, ...options } }, //
-  { loader: 'postcss-loader' }, //
+  { loader: 'css-loader', options: { importLoaders: 1, ...options } },
+  { loader: 'postcss-loader' },
 ];
 
 module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  stories: [
+    '../src/**/*.stories.mdx', //
+    '../src/**/*.stories.@(js|jsx|ts|tsx)',
+  ],
+  addons: [
+    '@storybook/addon-links', //
+    '@storybook/addon-essentials',
+    '@storybook/addon-controls',
+    '@storybook/addon-actions',
+    '@storybook/addon-viewport',
+  ],
   webpackFinal: async (config) => {
     config.module.rules = [
       // デフォルトのrulesに入っているCSS用の設定は、「.module.css」とバッティングするため除外

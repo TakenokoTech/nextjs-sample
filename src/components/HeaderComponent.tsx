@@ -2,14 +2,14 @@ import { ReactNode } from 'react';
 import style from './HeaderComponent.module.css';
 
 export enum HeaderSize {
-  Size2Xl,
-  SizeXL,
-  SizeLg,
+  Size2Xl = '2Xl',
+  SizeXL = 'XL',
+  SizeLg = 'LG',
 }
 
 interface Props {
   size: HeaderSize;
-  children: ReactNode;
+  children: any;
 }
 
 export default function HeaderComponent({ size, children }: Props) {
@@ -20,5 +20,7 @@ export default function HeaderComponent({ size, children }: Props) {
       return <h1 className={style.headingXL}>{children}</h1>;
     case HeaderSize.SizeLg:
       return <h2 className={style.headingLg}>{children}</h2>;
+    default:
+      return <></>;
   }
 }

@@ -1,14 +1,19 @@
 import React from 'react';
+import DateComponent from './DateComponent';
 import HeaderComponent, { HeaderSize } from './HeaderComponent';
 
 export default {
   title: 'HeaderComponent',
+  component: HeaderComponent,
+  argTypes: {
+    size: {
+      options: [HeaderSize.Size2Xl, HeaderSize.SizeXL, HeaderSize.SizeLg],
+      control: { type: 'radio' },
+    },
+  },
+  args: {
+    children: 'sample text',
+  },
 };
 
-export const show = () => (
-  <>
-    <HeaderComponent size={HeaderSize.Size2Xl}>HeaderSize.Size2Xl</HeaderComponent>
-    <HeaderComponent size={HeaderSize.SizeXL}>HeaderSize.SizeXL</HeaderComponent>
-    <HeaderComponent size={HeaderSize.SizeLg}>HeaderSize.SizeLg</HeaderComponent>
-  </>
-);
+export const show = (props) => <HeaderComponent {...props} />;

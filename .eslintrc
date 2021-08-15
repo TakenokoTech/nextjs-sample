@@ -2,13 +2,7 @@
   "extends": ["next", "next/core-web-vitals", "prettier"],
   "rules": {
     "sort-imports": 0,
-    "import/order": [
-      2,
-      {
-        "alphabetize": {
-          "order": "asc"
-        }
-      }
-    ]
+    "import/order": [2, {"alphabetize": { "order": "asc" }}],
+    "import/no-anonymous-default-export": [2, {"allowObject": true}]
   }
 }

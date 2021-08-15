@@ -3,12 +3,16 @@ import AlertComponent from './AlertComponent';
 
 export default {
   title: 'AlertComponent',
+  component: AlertComponent,
+  argTypes: {
+    type: {
+      options: ['none', 'success', 'error'],
+      control: { type: 'radio' },
+    },
+  },
+  args: {
+    children: 'sample text',
+  },
 };
 
-export const show = () => (
-  <>
-    <AlertComponent type={''}>none</AlertComponent>
-    <AlertComponent type={'success'}>success</AlertComponent>
-    <AlertComponent type={'error'}>test</AlertComponent>
-  </>
-);
+export const show = (props) => <AlertComponent {...props} />;
