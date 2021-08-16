@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import HeaderComponent, { HeaderSize } from '../../components/HeaderComponent';
 import LayoutComponent from '../../components/LayoutComponent';
@@ -18,18 +18,18 @@ export default function Post(props: InferGetStaticPropsType<typeof getStaticProp
   console.log(useRouter().query);
   const username = props.username;
 
-  // useState
+  // useEffect
   const [text, setText] = useState<string | null>(null);
   const [isLoading, setLoading] = useState(true);
   const [isError, setError] = useState(false);
-  const settingDiv1 = (() => {
+  const settingDiv1 = isLoading ? 'loading...' : text || isError;
+  useEffect(() => {
     getSettingUsecase
       .execute({ username })
       .then((res) => setText(res.logging.text))
       .catch((e) => setError(true))
       .finally(() => setLoading(false));
-    return isLoading ? 'loading...' : text || isError;
-  })();
+  });
 
   // useSWR
   const settingDiv2 = ((res) => {
